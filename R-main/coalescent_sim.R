@@ -1,7 +1,8 @@
-library(GSImulator)
-library(dplyr)
-library(tidyr)
-library(ggplot2)
+# this only works on a mac because it uses a mac-compiled version of ms within GSImulator
+
+library(GSImulator)    # get it with:      devtools::install_github("eriqande/GSImulator", ref = "97f7eb126df0c04bc042d00bd27f6dfd012640e1")
+library(tidyverse)
+library(rubias)
 
 Nmix <- 1000
 Dpar <- 1.5
@@ -17,6 +18,8 @@ reppy_frame <- data_frame(repunit = paste("repu", rep(1:3, ru), sep = "_"),
 
 rho50 <- lapply(1:50, function(rep) {
   print(rep)
+  
+  # get mixing proportions and number of individuals for the different populations
   ms <- {
     rut <- rgamma(length(ru), shape = ruDpar, scale = 10)
     rut <- rut / sum(rut)
@@ -33,6 +36,7 @@ rho50 <- lapply(1:50, function(rep) {
   TruePi <- pvec
   TrueRho <- rut
 
+  
   # Simulate genotypes using ms
   suppressMessages(GSImulate(refsizes = rs,
                              mixsizes = ms,
@@ -40,8 +44,9 @@ rho50 <- lapply(1:50, function(rep) {
                              num_sets = 1,
                              variability_string = " -t 0.3 ",
                              marker_pars = " -u .15 3 ",
-                             M_matrix = sh_island_mig_mat(ru = c(2, 3, 12), Min = 70, Mbt = 7.0))
-  )
+                             M_matrix = sh_island_mig_mat(ru = c(2, 3, 12), Min = 70, Mbt = 7.0),
+                             M_num = "bogus")  # just giving it a value that gets overridden by M_matrix (but throws an error if it is left NULL)
+   )
 
   # Convert to format needed for rubias processing
   indat <- gsim2bhru(1, reppy_frame)

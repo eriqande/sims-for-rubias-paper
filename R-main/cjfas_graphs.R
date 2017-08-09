@@ -1,7 +1,7 @@
-library(ggplot2)
-library(tidyr)
-library(dplyr)
-load("~/R/rubias/cjfas_data.RData")
+library(tidyverse)
+load("data/cjfas_simulation_results.Rdata")
+
+
 ################################# Figure 2 (Coalescent Simulation Cross-Validation)
 
 rho_data <- coal_rho_data
@@ -14,8 +14,8 @@ rho_data$method <- factor(rho_data$method, levels = levels(rho_data$method)[2:1]
 fig.2 <- ggplot2::ggplot(rho_data, ggplot2::aes(x = true_rho, y = Estimate, colour = repunit)) +
   ggplot2::geom_point() +
   ggplot2::facet_grid(repunit ~ method, labeller = label_parsed) +
-  ggplot2::labs(x='True (Simulated) Mixing Proportion', y = 'Estimated Mixing Proportion') +
-  ggplot2::guides(color=F) +
+  ggplot2::labs(x = 'True (Simulated) Mixing Proportion', y = 'Estimated Mixing Proportion') +
+  ggplot2::guides(color = F) +
   scale_color_brewer(palette = "Set1") +
   ggplot2::geom_abline(intercept = 0, slope = 1, linetype = "dashed")
 print(fig.2)
@@ -34,12 +34,12 @@ fig.3 <- ggplot2::ggplot(coal_bias_data, aes(x = Np_diff, y = diff)) +
   geom_point() +
   theme(axis.title.x = element_text(margin = margin(t = 2, b = 0)),
         axis.title.y = element_text(margin = margin(t = 0, b = 2)),
-        plot.margin = margin(t=6, r=6, b = 0, l=6)) +
+        plot.margin = margin(t = 6, r = 6, b = 0, l = 6)) +
   facet_grid(method ~ .) +
   geom_abline(intercept = 0, slope = 0, linetype = "dashed") +
   geom_vline(xintercept = 0, linetype = "dashed") +
   geom_smooth(method = "lm", colour = "red", level = 0) +
-  labs(x= expression(over(N[C],P)~~-~rho[r]^{sim}), y = expression(Residual~(tilde(rho)[r]-rho[r]^{sim}))) +
+  labs(x = expression(over(K[C],K)~~-~rho[r]^{sim}), y = expression(Residual~(tilde(rho)[r]-rho[r]^{sim}))) +
 
   scale_color_brewer(palette = "Set1")
 print(fig.3)
