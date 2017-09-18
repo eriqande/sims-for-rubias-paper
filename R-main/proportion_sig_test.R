@@ -1,7 +1,5 @@
-library(ggplot2)
-library(dplyr)
-
-load("~/R/rubias/cjfas_data.RData")
+library(tidyverse)
+load("data/cjfas_simulation_results.Rdata")
 
 # Exploring the relationship between RU bias and the difference of the true rho and Nc/P
 ### STASTICS IN THE PAPER APPEAR AT THE BOTTOM OF THE DOCUMENT ####
