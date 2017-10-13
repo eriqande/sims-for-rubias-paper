@@ -58,14 +58,16 @@ as `data/cjfas_simulation_results.Rdata`.
 
 ## Data summary and plotting scripts
 The remaining scripts summarize and plot results from the simulations.
-They use the data created by the "validation scripts"; however, they begin by loading `data/cjfas_simulation_results.Rdata`, and so can be run
+They use the data created by the "validation scripts"; however, they begin by
+loading `data/cjfas_simulation_results.Rdata`, and so can be run
 independently of the original simulation scripts.
-
 
 1.  `cjfas_graphs.R` contains the 
 scripts used to generate the [ggplot2](http://ggplot2.tidyverse.org/) figures found in
 the paper.  It creates the directory `plots_for_paper` and creates `figure_2.pdf` and 
 `figure_3.pdf` there.
+1. `mse_and_bias_table.R` takes the output in `data/cjfas_simulation_results.Rdata`
+and creates text to insert into the LaTeX table 2 for the paper.
 1. `proportion_sig_test.R` includes some of the exploratory analyses that were used 
 to identify and document the relationship between the residual for any 
 given simulation, $\tilde{\rho}_r - \rho^\mathrm{sim}_r$, and the statistic
@@ -77,5 +79,4 @@ graphs plot the true vs. estimated rho value *a la* Figure 3, while `.mse`,
 `.m.bias`, and `.prop.bias` show mean squared error, mean bias, and mean proportional bias
 for each reporting unit, with and without parametric bootstrapping. Prefixes `c`, `h`, 
 and `mc` represent coalescent, Leave-One-Out, and Monte Carlo cross-validations.
-
 
